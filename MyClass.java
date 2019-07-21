@@ -16,3 +16,7 @@ public class MyClass {
 		mycar1.car();
 	} 
 }
+public class Srajan
+{
+	System.out.println("Hello");
+}
