@@ -5,8 +5,7 @@
      android:id="@+id/menuLogout"
      />
  <item
-     android:title="Settings"
-     android:id="@+id/menuSetting"
+     android:title="Chat room"
+     android:id="@+id/menuChat"
   />
-
 </menu>

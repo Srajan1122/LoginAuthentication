@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,9 +20,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Signup_form extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     TextInputEditText username,email_id,password,confirm_password ;
     Button register;
     private FirebaseAuth firebaseAuth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +78,10 @@ public class Signup_form extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        sendEmailVerification();
                                         startActivity(new Intent(getApplicationContext(),Login_form.class));
                                         Toast.makeText(Signup_form.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Signup_form.this, "Email verification code has been sent", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(Signup_form.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                                     }
@@ -91,6 +95,24 @@ public class Signup_form extends AppCompatActivity {
         });
 
     }
+    public void sendEmailVerification() {
+        // [START send_email_verification]
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
 
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                        }
+                        else{
+
+                        }
+                    }
+                });
+        // [END send_email_verification]
+    }
 
 }

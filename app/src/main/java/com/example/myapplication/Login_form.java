@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -56,8 +55,13 @@ public class Login_form extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                    Toast.makeText(Login_form.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                                    if(firebaseauth.getCurrentUser().isEmailVerified()){
+                                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                        Toast.makeText(Login_form.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(Login_form.this, "PLease verify your email", Toast.LENGTH_SHORT).show();
+                                    }
+
                                 } else {
                                     Toast.makeText(Login_form.this, "Login failed", Toast.LENGTH_SHORT).show();
                                 }
@@ -71,7 +75,7 @@ public class Login_form extends AppCompatActivity {
 
     }
 
-    public void register_btn(View view) {
+    public void register_text(View view){
         startActivity(new Intent(getApplicationContext(),Signup_form.class));
     }
 
