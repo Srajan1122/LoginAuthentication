@@ -9,11 +9,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
+
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Signup_form extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    TextInputEditText username,email_id,password,confirm_password ;
+    EditText username,email_id,password,confirm_password ;
     Button register;
     private FirebaseAuth firebaseAuth;
 
@@ -32,10 +33,10 @@ public class Signup_form extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_form);
 
-        username = (TextInputEditText) findViewById(R.id.user_name);
-        email_id =  (TextInputEditText) findViewById(R.id.email_id);
-        password = (TextInputEditText)  findViewById(R.id.pass);
-        confirm_password =  (TextInputEditText) findViewById(R.id.confirm_pass);
+        username =  findViewById(R.id.user_name);
+        email_id =   findViewById(R.id.email_id);
+        password =  findViewById(R.id.pass);
+        confirm_password =  findViewById(R.id.confirm_pass);
         register = findViewById(R.id.register_button);
 
         firebaseAuth = FirebaseAuth.getInstance();
