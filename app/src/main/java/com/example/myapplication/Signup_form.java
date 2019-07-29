@@ -64,7 +64,7 @@ public class Signup_form extends AppCompatActivity {
                     Toast.makeText(Signup_form.this, "Password cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(pass.length()<8){
+                if(pass.length()<6){
                     Toast.makeText(Signup_form.this, "Password too short", Toast.LENGTH_SHORT).show();
                     return;
                 }

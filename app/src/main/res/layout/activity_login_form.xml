@@ -56,28 +56,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:background="@drawable/button_rounded"
         android:text="Login"
+        android:textColor="#fff"
+        android:textSize="25dp"
+
+        />
+
+    <Button
+        android:id="@+id/forgot_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Forgot Password"
         android:textSize="25dp"
         android:background="@drawable/button_rounded"
         android:textColor="#fff"
 
         />
-
     <LinearLayout
-
-        android:layout_width="366dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:orientation="horizontal"
 
         >
-
-        <TextView
-
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="Not registered? " />
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Not registered? "
+        android:gravity="end"
+        />
 
         <TextView
 
@@ -90,6 +98,7 @@
             android:onClick="register_text"
             android:text="Register"
             android:textSize="17dp" />
+
 
 
     </LinearLayout>

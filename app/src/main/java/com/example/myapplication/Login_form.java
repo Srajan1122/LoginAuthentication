@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login_form extends AppCompatActivity {
 
     EditText email ,password;
-    Button login;
+    Button login,forgot_button;
     private FirebaseAuth firebaseauth ;
 
     @Override
@@ -30,10 +30,16 @@ public class Login_form extends AppCompatActivity {
         email = (EditText) findViewById(R.id.login_email_id);
         password = (EditText) findViewById(R.id.login_pass);
         login = (Button) findViewById(R.id.login_button);
+        forgot_button = findViewById(R.id.forgot_button);
 
         firebaseauth = FirebaseAuth.getInstance();
 
-
+        forgot_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Forgot_form.class));
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +77,6 @@ public class Login_form extends AppCompatActivity {
                         });
             }
         });
-
 
     }
 
