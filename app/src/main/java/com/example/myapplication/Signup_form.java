@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,13 +19,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Signup_form extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    EditText username,email_id,password,confirm_password ;
-    Button register;
+    private EditText username,email_id,password,confirm_password ;
+    private Button register;
     private FirebaseAuth firebaseAuth;
+    private ImageView userProfilePic;
+    String uname, email, pass, conf_pass;
 
 
 
@@ -38,16 +43,17 @@ public class Signup_form extends AppCompatActivity {
         password =  findViewById(R.id.pass);
         confirm_password =  findViewById(R.id.confirm_pass);
         register = findViewById(R.id.register_button);
+        userProfilePic = findViewById(R.id.ivProfilePic);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uname = username.getText().toString().trim();
-                String email = email_id.getText().toString().trim();
-                String pass = password.getText().toString().trim();
-                String conf_pass = confirm_password.getText().toString().trim();
+                uname = username.getText().toString().trim();
+                email = email_id.getText().toString().trim();
+                pass = password.getText().toString().trim();
+                conf_pass = confirm_password.getText().toString().trim();
 
                 if(TextUtils.isEmpty(uname)){
                     Toast.makeText(Signup_form.this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
@@ -106,6 +112,7 @@ public class Signup_form extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            sendUserData();
                             Log.d(TAG, "Email sent.");
                         }
                         else{
@@ -114,6 +121,13 @@ public class Signup_form extends AppCompatActivity {
                     }
                 });
         // [END send_email_verification]
+    }
+
+    private void sendUserData() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference(firebaseAuth.getUid());
+        UserProfile userProfile = new UserProfile(uname, email);
+        myRef.setValue(userProfile);
     }
 
 }

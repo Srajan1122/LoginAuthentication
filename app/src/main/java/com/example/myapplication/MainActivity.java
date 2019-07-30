@@ -29,12 +29,17 @@ public class MainActivity<firebase> extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-         switch (item.getItemId()){
-             case R.id.menuLogout:
+         switch (item.getItemId()) {
+             case R.id.menuLogout :{
                  firebase.getInstance().signOut();
                  finish();
-                 startActivity(new Intent(getApplicationContext(),Login_form.class));
+                 startActivity(new Intent(getApplicationContext(), Login_form.class));}
+
+             case R.id.profileMenu:
+                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
          }
+
+
         return true;
     }
 
