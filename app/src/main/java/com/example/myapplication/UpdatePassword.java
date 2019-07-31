@@ -36,19 +36,31 @@ public class UpdatePassword extends AppCompatActivity {
             public void onClick(View view) {
 
                 String userPasswordNew = newPaswword.getText().toString();
+                String newConfirmPassword = newPaswword.getText().toString();
 
-                firebaseUser.updatePassword(userPasswordNew).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(UpdatePassword.this, "Password Changed", Toast.LENGTH_SHORT).show();
-                            finish();
+                if(newPaswword.length()<6){
+                    Toast.makeText(UpdatePassword.this, "Password too short", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!newPaswword.equals(newConfirmPassword)){
+                    Toast.makeText(UpdatePassword.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    firebaseUser.updatePassword(userPasswordNew).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(UpdatePassword.this, "Password Changed", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                Toast.makeText(UpdatePassword.this, "Password Update Failed", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else {
-                            Toast.makeText(UpdatePassword.this, "Password Update Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+
+                }
+
+
             }
         });
 

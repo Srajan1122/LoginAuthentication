@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.16"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
-    <EditText
+    <TextView
         android:id="@+id/etProfileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.092"
         android:textSize="28dp"/>
 
-    <EditText
+    <TextView
         android:id="@+id/tvProfileName"
         android:layout_width="339dp"
         android:layout_height="54dp"

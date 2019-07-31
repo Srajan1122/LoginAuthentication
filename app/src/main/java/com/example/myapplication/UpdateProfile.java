@@ -3,7 +3,9 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,9 +62,20 @@ public class UpdateProfile extends AppCompatActivity {
                 String name = newUserName.getText().toString();
                 String email = newUserEmail.getText().toString();
 
-                UserProfile userProfile = new UserProfile(name, email);
+                if(TextUtils.isEmpty(name)){
+                    Toast.makeText(UpdateProfile.this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isDigitsOnly(name)){
+                    Toast.makeText(UpdateProfile.this, "Invalid username", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    UserProfile userProfile = new UserProfile(name, email);
+                    databaseReference.setValue(userProfile);
+                    Toast.makeText(UpdateProfile.this, "Updated", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                }
 
-                databaseReference.setValue(userProfile);
             }
         });
 
