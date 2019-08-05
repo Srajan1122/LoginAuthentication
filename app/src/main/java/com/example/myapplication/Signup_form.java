@@ -44,15 +44,16 @@ public class Signup_form extends AppCompatActivity {
     private static int PICK_IMAGE = 123;
     String uname, email, pass, conf_pass;
     Uri imagePath;
+    Bitmap bitmap;
     private StorageReference storageReference;
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == PICK_IMAGE && requestCode == RESULT_OK && data.getData() != null){
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null){
             imagePath = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
                 userProfilePic.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -82,10 +83,11 @@ public class Signup_form extends AppCompatActivity {
         userProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE );
+
             }
         });
 
@@ -121,6 +123,11 @@ public class Signup_form extends AppCompatActivity {
                 }
                 if(!pass.equals(conf_pass)){
                     Toast.makeText(Signup_form.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(imagePath == null)
+                {
+                    Toast.makeText(Signup_form.this, "Select an image", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
 

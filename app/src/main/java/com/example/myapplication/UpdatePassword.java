@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class UpdatePassword extends AppCompatActivity {
 
     private Button update;
-    private EditText newPaswword, newConfirmPassword;
+    private EditText newPassword, newConfirmPassword;
     private FirebaseUser firebaseUser;
 
     @Override
@@ -26,8 +26,8 @@ public class UpdatePassword extends AppCompatActivity {
         setContentView(R.layout.activity_update_password);
 
         update = findViewById(R.id.btnUpdatePassword);
-        newPaswword = findViewById(R.id.etNewPassword);
-        newConfirmPassword = findViewById(R.id.etNewCondirmPassword);
+        newPassword = findViewById(R.id.etNewPassword);
+        newConfirmPassword = findViewById(R.id.etNewConfirmPassword);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -35,17 +35,14 @@ public class UpdatePassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String userPasswordNew = newPaswword.getText().toString();
-                String newConfirmPassword = newPaswword.getText().toString();
+                String userPasswordNew = newPassword.getText().toString().trim();
+                String userConfirmPasswordNew = newConfirmPassword.getText().toString().trim();
 
-                if(newPaswword.length()<6){
+                if(userPasswordNew.length()<6){
                     Toast.makeText(UpdatePassword.this, "Password too short", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!newPaswword.equals(newConfirmPassword)){
-                    Toast.makeText(UpdatePassword.this, "Password does not match", Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
+                if(userPasswordNew.equals(userConfirmPasswordNew)){
                     firebaseUser.updatePassword(userPasswordNew).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -58,6 +55,10 @@ public class UpdatePassword extends AppCompatActivity {
                         }
                     });
 
+                }
+                else{
+                    Toast.makeText(UpdatePassword.this, "password does not match", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
 

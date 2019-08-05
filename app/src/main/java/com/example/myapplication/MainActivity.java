@@ -7,16 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
-
 import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 
 
 public class MainActivity<firebase> extends AppCompatActivity {
-
-    private FirebaseAuth firebase ;
 
 
     @Override
@@ -31,9 +27,11 @@ public class MainActivity<firebase> extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
          switch (item.getItemId()) {
              case R.id.menuLogout :{
-                 firebase.getInstance().signOut();
+                 FirebaseAuth.getInstance().signOut();
                  finish();
-                 startActivity(new Intent(getApplicationContext(), Login_form.class));}
+                 startActivity(new Intent(getApplicationContext(), Login_form.class));
+                break;
+             }
 
              case R.id.profileMenu:
                  startActivity(new Intent(MainActivity.this, ProfileActivity.class));
